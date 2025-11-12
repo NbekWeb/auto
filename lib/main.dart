@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yandex_mapkit/yandex_mapkit.dart';
 import 'colors.dart';
 import 'pages/splash_page.dart';
 import 'pages/auth/step.dart';
 import 'pages/auth/login_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // Yandex Maps API kalitini o'rnatish
+  // API kalit iOS va Android manifest fayllarida o'rnatilgan
+  
   runApp(const MyApp());
 }
 

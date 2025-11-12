@@ -1,4 +1,4 @@
-# flutter_svg_manrope
+# auto
 
 A new Flutter project.
 

@@ -5,12 +5,14 @@ class GetCodeButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final String text;
   final bool isActive;
+  final bool isLoading;
 
   const GetCodeButton({
     super.key,
     this.onPressed,
     this.text = 'Получить код',
     this.isActive = false,
+    this.isLoading = false,
   });
 
   @override
@@ -23,7 +25,10 @@ class GetCodeButton extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: isActive 
             ? const LinearGradient(
+                begin: Alignment(-0.8, -0.6),
+                end: Alignment(0.8, 0.6),
                 colors: [Color(0xFFF67824), Color(0xFFF6A523)],
+                stops: [0.0, 1.0],
               )
             : null,
         color: isActive ? null : (isDark ? const Color(0xFF343F47) : const Color(0xFFF5F5F5)),
@@ -52,16 +57,27 @@ class GetCodeButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           onTap: onPressed,
           child: Center(
-            child: Text(
-              text,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: isActive 
-                    ? Colors.white 
-                    : (isDark ? const Color(0xFF818B93) : AppColors.lightText),
-              ),
-            ),
+            child: isLoading
+                ? SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        isActive ? Colors.white : (isDark ? const Color(0xFF818B93) : AppColors.lightText),
+                      ),
+                    ),
+                  )
+                : Text(
+                    text,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: isActive 
+                          ? Colors.white 
+                          : (isDark ? const Color(0xFF818B93) : AppColors.lightText),
+                    ),
+                  ),
           ),
         ),
       ),

@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example.flutter_svg_manrope" "\0"
-            VALUE "FileDescription", "flutter_svg_manrope" "\0"
+            VALUE "CompanyName", "com.nbekdev.autocheck" "\0"
+            VALUE "FileDescription", "auto" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "flutter_svg_manrope" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2025 com.example.flutter_svg_manrope. All rights reserved." "\0"
-            VALUE "OriginalFilename", "flutter_svg_manrope.exe" "\0"
-            VALUE "ProductName", "flutter_svg_manrope" "\0"
+            VALUE "InternalName", "auto" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2025 com.nbekdev.autocheck. All rights reserved." "\0"
+            VALUE "OriginalFilename", "auto.exe" "\0"
+            VALUE "ProductName", "auto" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

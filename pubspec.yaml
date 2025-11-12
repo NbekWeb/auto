@@ -1,5 +1,5 @@
-name: flutter_svg_manrope
-description: "A new Flutter project."
+name: check_auto
+description: "check auto"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
@@ -16,7 +16,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+version: 1.0.3+4
 
 environment:
   sdk: ^3.8.1
@@ -43,6 +43,28 @@ dependencies:
   
   # URL launcher for opening external links
   url_launcher: ^6.2.4
+  
+  # Secure storage for tokens
+  flutter_secure_storage: ^9.2.2
+  
+  # Local storage
+  shared_preferences: ^2.2.2
+  
+  # HTTP client
+  dio: ^5.7.0
+  
+  # App icon generator
+  flutter_launcher_icons: ^0.13.1
+  
+  # Yandex Maps
+  
+  # Icons library
+  font_awesome_flutter: ^10.7.0
+  
+  # Location services
+  geolocator: ^10.1.0
+  permission_handler: ^11.0.1
+  yandex_mapkit: ^4.2.1
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +91,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/fonts/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -99,3 +122,9 @@ flutter_native_splash:
   color: "#252F37"
   android_12:
     color: "#252F37"
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo.png"
+  remove_alpha_ios: true

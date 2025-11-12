@@ -16,7 +16,7 @@ class AppColors {
   static const Color lightSurface = Color(0xFFF8FAFC);
   static const Color lightPrimary = Color(0xFF3B82F6);
   static const Color lightText = Color(0xFFE7E8E8);
-  static const Color lightTextSecondary = Color(0xFFA3A3A3);
+  static const Color lightTextSecondary = Color(0xFF818B93);
   
   // Step dots colors
   static const Color stepDotActive = Color(0xFFFF771C);

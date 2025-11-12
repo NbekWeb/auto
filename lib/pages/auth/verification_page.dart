@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import '../../colors.dart';
+import '../../components/toast_service.dart';
+import '../../layouts/dashboard_layout.dart';
+import '../../services/auth_service.dart';
+import 'master_setup_page.dart';
 
 class VerificationPage extends StatefulWidget {
-  final String phoneNumber;
+  final String email;
+  final int userType; // 0 for Автовладелец, 1 for Мастер
 
-  const VerificationPage({super.key, required this.phoneNumber});
+  const VerificationPage({super.key, required this.email, this.userType = 0});
 
   @override
   State<VerificationPage> createState() => _VerificationPageState();
@@ -21,6 +26,7 @@ class _VerificationPageState extends State<VerificationPage> {
   bool _canResend = false;
   bool _showError = false;
   double _errorOpacity = 0.0;
+  bool _isVerifying = false;
 
   @override
   void initState() {
@@ -65,25 +71,54 @@ class _VerificationPageState extends State<VerificationPage> {
     }
   }
 
-  void _checkCode() {
+  void _checkCode() async {
     String enteredCode = _controllers
         .map((controller) => controller.text)
         .join();
-    if (enteredCode.length == 4) {
-      if (enteredCode != "2222") {
+    if (enteredCode.length == 4 && !_isVerifying) {
+      setState(() {
+        _isVerifying = true;
+      });
+
+      try {
+        final role = widget.userType == 1 ? 'Master' : 'Driver';
+        final result = await AuthService.verifyCode(
+          widget.email,
+          enteredCode,
+          role: role,
+        );
+        
+        if (result['success'] == true) {
+          // Code is correct, proceed to next step
+          ToastService.showSuccess(
+            context,
+            message: result['message']?.toString() ?? 'Код подтвержден успешно!',
+          );
+          _handleCorrectCode();
+        } else {
+          // Show error message
+          ToastService.showError(
+            context,
+            message: result['message']?.toString() ?? 'Неверный код',
+          );
+          setState(() {
+            _showError = true;
+            _errorOpacity = 1.0;
+          });
+        }
+      } catch (e) {
+        // Show error on network issues
+        ToastService.showError(context, message: 'Ошибка сети. Попробуйте позже.');
         setState(() {
           _showError = true;
           _errorOpacity = 1.0;
         });
-      } else {
+      } finally {
         setState(() {
-          _showError = false;
-          _errorOpacity = 0.0;
+          _isVerifying = false;
         });
-        // Code is correct, proceed to next step
-        _handleCorrectCode();
       }
-    } else {
+    } else if (enteredCode.length < 4) {
       // Hide error when less than 4 digits
       setState(() {
         _showError = false;
@@ -93,19 +128,76 @@ class _VerificationPageState extends State<VerificationPage> {
   }
 
   void _handleCorrectCode() {
+    // Navigate based on user type
+    if (widget.userType == 1) {
+      // Master - go to master setup page
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const MasterSetupPage(),
+        ),
+      );
+    } else {
+      // Автовладелец - go to dashboard with map page
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const DashboardLayout(),
+        ),
+      );
+    }
   }
 
-  void _sendCode() {
-    // Simulate sending code
-  
-    // Reset countdown
-    setState(() {
-      _countdown = 59;
-      _canResend = false;
-    });
+  void _sendCode() async {
+    if (_isVerifying) return;
     
-    // Start countdown
-    _startCountdown();
+    setState(() {
+      _isVerifying = true;
+    });
+
+    try {
+      final role = widget.userType == 1 ? 'Master' : 'Driver';
+      final result = await AuthService.loginWithEmail(
+        widget.email,
+        role: role,
+      );
+      
+      if (result['success'] == true) {
+        // Reset countdown
+        setState(() {
+          _countdown = 59;
+          _canResend = false;
+          _showError = false;
+          _errorOpacity = 0.0;
+        });
+        
+        // Clear all input fields
+        for (var controller in _controllers) {
+          controller.clear();
+        }
+        
+        // Show success message
+        ToastService.showSuccess(
+          context,
+          message: result['message']?.toString() ?? 'Код отправлен повторно на email!',
+        );
+        
+        // Start countdown
+        _startCountdown();
+      } else {
+        // Show error message
+        ToastService.showError(
+          context,
+          message: result['message']?.toString() ?? 'Попробуйте позже',
+        );
+      }
+    } catch (e) {
+      ToastService.showError(context, message: 'Ошибка сети. Попробуйте позже.');
+    } finally {
+      setState(() {
+        _isVerifying = false;
+      });
+    }
   }
 
   @override
@@ -143,17 +235,22 @@ class _VerificationPageState extends State<VerificationPage> {
           ),
         ),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
+      body: GestureDetector(
+        onTap: () {
+          // Dismiss keyboard when tapping outside
+          FocusScope.of(context).unfocus();
+        },
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
             children: [
               const SizedBox(height: 40),
 
               // Main title
               Center(
                 child: Text(
-                  'Введите код из SMS',
+                  'Введите код из email',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -166,7 +263,7 @@ class _VerificationPageState extends State<VerificationPage> {
 
               // Description
               Text(
-                'Мы отправили его на номер',
+                'Мы отправили его на email',
                 style: TextStyle(
                   fontSize: 14,
                   color: isDark
@@ -177,16 +274,19 @@ class _VerificationPageState extends State<VerificationPage> {
 
               const SizedBox(height: 8),
 
-              // Phone number with change option
+              // Email with change option
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    widget.phoneNumber,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: isDark ? AppColors.darkText : AppColors.lightText,
+                  Flexible(
+                    child: Text(
+                      widget.email,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: isDark ? AppColors.darkText : AppColors.lightText,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -292,9 +392,10 @@ class _VerificationPageState extends State<VerificationPage> {
                 decoration: BoxDecoration(
                   gradient: _canResend
                       ? const LinearGradient(
+                          begin: Alignment(-0.8, -0.6),
+                          end: Alignment(0.8, 0.6),
                           colors: [Color(0xFFF67824), Color(0xFFF6A523)],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
+                          stops: [0.0, 1.0],
                         )
                       : null,
                   color: _canResend
@@ -329,26 +430,40 @@ class _VerificationPageState extends State<VerificationPage> {
                     borderRadius: BorderRadius.circular(12),
                     onTap: _canResend ? _sendCode : null,
                     child: Center(
-                      child: Text(
-                        _canResend
-                            ? 'Отправить код повторно'
-                            : 'Отправить код повторно через $_countdown',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: _canResend
-                              ? Colors.white
-                              : (isDark
-                                  ? const Color(0xFF818B93)
-                                  : AppColors.lightTextSecondary),
-                        ),
-                      ),
+                      child: _isVerifying
+                          ? SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  _canResend ? Colors.white : (isDark
+                                      ? const Color(0xFF818B93)
+                                      : AppColors.lightTextSecondary),
+                                ),
+                              ),
+                            )
+                          : Text(
+                              _canResend
+                                  ? 'Отправить код повторно'
+                                  : 'Отправить код повторно через $_countdown',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: _canResend
+                                    ? Colors.white
+                                    : (isDark
+                                        ? const Color(0xFF818B93)
+                                        : AppColors.lightTextSecondary),
+                              ),
+                            ),
                     ),
                   ),
                 ),
               ),
             ],
           ),
+        ),
         ),
       ),
     );

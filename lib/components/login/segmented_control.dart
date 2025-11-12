@@ -66,7 +66,10 @@ class SegmentedControl extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: isSelected
               ? const LinearGradient(
+                  begin: Alignment(-0.8, -0.6),
+                  end: Alignment(0.8, 0.6),
                   colors: [Color(0xFFF67824), Color(0xFFF6A523)],
+                  stops: [0.0, 1.0],
                 )
               : null,
           color: isSelected ? null : Colors.transparent,

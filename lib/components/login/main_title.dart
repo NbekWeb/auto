@@ -10,7 +10,7 @@ class MainTitle extends StatelessWidget {
     
     return Center(
       child: Text(
-        'Войдите или зарегистрируйтесь',
+        'Войдите через email',
         style: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w700,

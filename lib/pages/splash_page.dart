@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../colors.dart';
+import '../services/api.dart';
+import '../layouts/dashboard_layout.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -18,6 +19,9 @@ class _SplashPageState extends State<SplashPage>
   @override
   void initState() {
     super.initState();
+    
+    // Initialize API service
+    ApiService.init();
     
     _animationController = AnimationController(
       duration: const Duration(seconds: 2),
@@ -42,12 +46,40 @@ class _SplashPageState extends State<SplashPage>
     
     _animationController.forward();
     
-    // Navigate to main screen after 3 seconds
-    Future.delayed(const Duration(seconds: 2), () {
+    // Check token and navigate after animation
+    Future.delayed(const Duration(seconds: 2), () async {
+      if (mounted) {
+        await _checkAuthAndNavigate();
+      }
+    });
+  }
+
+  Future<void> _checkAuthAndNavigate() async {
+    try {
+      // Check if token exists
+      final hasToken = await ApiService.hasToken();
+      
+      if (hasToken) {
+        // Token exists, navigate to dashboard
+        if (mounted) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => const DashboardLayout(),
+            ),
+          );
+        }
+      } else {
+        // No token, navigate to login
+        if (mounted) {
+          Navigator.of(context).pushReplacementNamed('/steps');
+        }
+      }
+    } catch (e) {
+      // On error, navigate to login
       if (mounted) {
         Navigator.of(context).pushReplacementNamed('/steps');
       }
-    });
+    }
   }
 
   @override
@@ -61,17 +93,8 @@ class _SplashPageState extends State<SplashPage>
     final isDark = Theme.of(context).brightness == Brightness.dark;
     
     return Scaffold(
-      backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,
+      backgroundColor: isDark ? const Color(0xFF252F37) : AppColors.lightBackground,
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: isDark 
-              ? [AppColors.darkBackground, AppColors.darkSurface]
-              : [AppColors.lightBackground, AppColors.lightSurface],
-          ),
-        ),
         child: Center(
           child: AnimatedBuilder(
             animation: _animationController,
