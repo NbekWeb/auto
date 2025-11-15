@@ -31,7 +31,7 @@ class WorkshopMastersTab extends StatelessWidget {
           return Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: isDark ? const Color(0xFF343F47) : const Color(0xFFF5F5F5),
+              color: isDark ? AppColors.inputDark : AppColors.inputLight,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(
@@ -42,7 +42,7 @@ class WorkshopMastersTab extends StatelessWidget {
                   height: 40,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: const Color(0xFF66727A),
+                    color: AppColors.textGreyLight,
                   ),
                   child: const Icon(Icons.person, color: Colors.white, size: 30),
                 ),

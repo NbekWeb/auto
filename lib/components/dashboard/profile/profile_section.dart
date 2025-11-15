@@ -88,7 +88,7 @@ class _ProfileSectionItemWidget extends StatelessWidget {
               ? null
               : Border(
                   bottom: BorderSide(
-                    color: isDark ? const Color(0xFF252F37) : const Color(0xFFE0E0E0),
+                    color: isDark ? AppColors.borderDark : AppColors.borderLight,
                     width: 1,
                   ),
                 ),
@@ -101,7 +101,7 @@ class _ProfileSectionItemWidget extends StatelessWidget {
                     width: 24,
                     height: 24,
                     colorFilter: ColorFilter.mode(
-                      isDark ? const Color(0xFF818B93) : AppColors.lightText,
+                      isDark ? AppColors.textGrey : AppColors.lightText,
                       BlendMode.srcIn,
                     ),
                   )

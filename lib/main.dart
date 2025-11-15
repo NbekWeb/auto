@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:yandex_mapkit/yandex_mapkit.dart';
 import 'colors.dart';
+import 'constants/navigator_key.dart';
 import 'pages/splash_page.dart';
 import 'pages/auth/step.dart';
 import 'pages/auth/login_page.dart';
+import 'services/api.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
   // Yandex Maps API kalitini o'rnatish
   // API kalit iOS va Android manifest fayllarida o'rnatilgan
+  
+  // Initialize API service
+  ApiService.init();
   
   runApp(const MyApp());
 }
@@ -23,6 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'My App',
       debugShowCheckedModeBanner: false,
+      navigatorKey: navigatorKey,
       theme: ThemeData(
         brightness: Brightness.dark,
         primaryColor: AppColors.lightPrimary,

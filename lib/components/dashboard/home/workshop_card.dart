@@ -24,15 +24,15 @@ class WorkshopCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.only(top: 8, right: 8, bottom: 12, left: 8),
       decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF1E272F) : const Color(0xFFF5F5F5),
+        color: isDark ? AppColors.cardDark : AppColors.cardLight,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: isDark ? const Color(0xFF252F37) : const Color(0xFFE0E0E0),
+          color: isDark ? AppColors.borderDark : AppColors.borderLight,
           width: 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: const Color(0x0AFFFFFF), // #FFFFFF0A
+            color: Colors.white.withOpacity(0.04),
             offset: const Offset(-6, -6),
             blurRadius: 12,
             spreadRadius: 0,
@@ -80,7 +80,7 @@ class WorkshopCard extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 14,
                         color: isDark
-                            ? const Color(0xFF818B93)
+                            ? AppColors.textGrey
                             : AppColors.lightTextSecondary,
                         fontFamily: 'Manrope',
                       ),
@@ -91,7 +91,7 @@ class WorkshopCard extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 12,
                         color: isDark
-                            ? const Color(0xFFD1D3D5)
+                            ? AppColors.iconGrey
                             : AppColors.lightTextSecondary,
                         fontFamily: 'Manrope',
                       ),
@@ -115,7 +115,7 @@ class WorkshopCard extends StatelessWidget {
                     height: 4,
                     margin: const EdgeInsets.only(top: 6, right: 10, left: 8),
                     decoration: const BoxDecoration(
-                      color: Color(0xFFFF771C),
+                      color: AppColors.orange,
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -130,7 +130,7 @@ class WorkshopCard extends StatelessWidget {
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
                                 color: isDark
-                                    ? const Color(0xFFD1D3D5)
+                                    ? AppColors.iconGrey
                                     : AppColors.lightTextSecondary,
                                 fontFamily: 'Manrope',
                                 height: 1.3,
@@ -142,7 +142,7 @@ class WorkshopCard extends StatelessWidget {
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
                                 color: isDark
-                                    ? const Color(0xFFD1D3D5)
+                                    ? AppColors.iconGrey
                                     : AppColors.lightTextSecondary,
                                 fontFamily: 'Manrope',
                                 height: 1.3,
@@ -154,7 +154,7 @@ class WorkshopCard extends StatelessWidget {
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
                                 color: isDark
-                                    ? const Color(0xFF818B93)
+                                    ? AppColors.textGrey
                                     : AppColors.lightTextSecondary,
                                 fontFamily: 'Manrope',
                                 height: 1.3,

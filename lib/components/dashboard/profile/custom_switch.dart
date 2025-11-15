@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../colors.dart';
 
 class CustomSwitch extends StatelessWidget {
   final bool value;
@@ -30,15 +31,15 @@ class CustomSwitch extends StatelessWidget {
               ? LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: const [
-                    Color(0xFFF67824),
-                    Color(0xFFF6A523),
+                  colors: [
+                    AppColors.orangeGradientStart,
+                    AppColors.orangeGradientEnd,
                   ],
                 )
               : null,
           color: value
               ? null
-              : (isDark ? const Color(0xFF343F47) : const Color(0xFFE0E0E0)),
+              : (isDark ? AppColors.inputDark : AppColors.borderLight),
         ),
         child: Stack(
           children: [

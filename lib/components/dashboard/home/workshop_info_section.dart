@@ -44,7 +44,7 @@ class WorkshopInfoSection extends StatelessWidget {
                 height: 12,
                 colorFilter: ColorFilter.mode(
                   isDark
-                      ? const Color(0xFF66727A)
+                      ? AppColors.textGreyLight
                       : AppColors.lightTextSecondary,
                   BlendMode.srcIn,
                 ),
@@ -55,7 +55,7 @@ class WorkshopInfoSection extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14,
                   color: isDark
-                      ? const Color(0xFF66727A)
+                      ? AppColors.textGreyLight
                       : AppColors.lightTextSecondary,
                   fontFamily: 'Manrope',
                 ),
@@ -72,7 +72,7 @@ class WorkshopInfoSection extends StatelessWidget {
                 height: 12,
                 colorFilter: ColorFilter.mode(
                   isDark
-                      ? const Color(0xFF66727A)
+                      ? AppColors.textGreyLight
                       : AppColors.lightTextSecondary,
                   BlendMode.srcIn,
                 ),
@@ -83,7 +83,7 @@ class WorkshopInfoSection extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14,
                   color: isDark
-                      ? const Color(0xFF66727A)
+                      ? AppColors.textGreyLight
                       : AppColors.lightTextSecondary,
                   fontFamily: 'Manrope',
                 ),
@@ -99,7 +99,7 @@ class WorkshopInfoSection extends StatelessWidget {
                 width: 12,
                 height: 12,
                 colorFilter: const ColorFilter.mode(
-                  Color(0xFFFF771C),
+                  AppColors.orange,
                   BlendMode.srcIn,
                 ),
               ),

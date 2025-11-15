@@ -204,7 +204,7 @@ class _HomePageState extends State<HomePage> {
                           width: 20,
                           height: 20,
                           colorFilter: const ColorFilter.mode(
-                            Color(0xFFFF8635),
+                            AppColors.orangeSelected,
                             BlendMode.srcIn,
                           ),
                         ),
@@ -218,7 +218,7 @@ class _HomePageState extends State<HomePage> {
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2,
                                     valueColor: AlwaysStoppedAnimation<Color>(
-                                      Color(0xFFFF8635),
+                                      AppColors.orangeSelected,
                                     ),
                                   ),
                                 ),

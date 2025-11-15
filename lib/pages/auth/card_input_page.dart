@@ -225,10 +225,10 @@ class _CardInputPageState extends State<CardInputPage> {
 
               Container(
                 decoration: BoxDecoration(
-                  color: isDark ? const Color(0xFF343F47) : const Color(0xFFF5F5F5),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: const Color(0xFF4F5B63),
+                  color: isDark ? AppColors.inputDark : AppColors.inputLight,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                    color: AppColors.inputBorder,
                     width: 1,
                   ),
                 ),
@@ -277,10 +277,10 @@ class _CardInputPageState extends State<CardInputPage> {
                         const SizedBox(height: 12),
                         Container(
                           decoration: BoxDecoration(
-                            color: isDark ? const Color(0xFF343F47) : const Color(0xFFF5F5F5),
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: const Color(0xFF4F5B63),
+                  color: isDark ? AppColors.inputDark : AppColors.inputLight,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                    color: AppColors.inputBorder,
                               width: 1,
                             ),
                           ),
@@ -329,10 +329,10 @@ class _CardInputPageState extends State<CardInputPage> {
                         const SizedBox(height: 12),
                         Container(
                           decoration: BoxDecoration(
-                            color: isDark ? const Color(0xFF343F47) : const Color(0xFFF5F5F5),
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: const Color(0xFF4F5B63),
+                  color: isDark ? AppColors.inputDark : AppColors.inputLight,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                    color: AppColors.inputBorder,
                               width: 1,
                             ),
                           ),
@@ -378,19 +378,19 @@ class _CardInputPageState extends State<CardInputPage> {
                     decoration: BoxDecoration(
                       gradient: isComplete
                           ? const LinearGradient(
-                              colors: [Color(0xFFF67824), Color(0xFFF6A523)],
+                              colors: [AppColors.orangeGradientStart, AppColors.orangeGradientEnd],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                             )
                           : null,
                       color: isComplete
                           ? null
-                          : (isDark ? const Color(0xFF343F47) : const Color(0xFFF5F5F5)),
+                          : (isDark ? AppColors.inputDark : AppColors.inputLight),
                       borderRadius: BorderRadius.circular(12),
                       boxShadow: isComplete
                           ? [
                               BoxShadow(
-                                color: const Color(0xFFF68324).withOpacity(0.2),
+                                color: AppColors.orangeGradientShadow.withOpacity(0.2),
                                 offset: const Offset(0, 0),
                                 blurRadius: 12,
                                 spreadRadius: 2,
@@ -398,7 +398,7 @@ class _CardInputPageState extends State<CardInputPage> {
                             ]
                           : [
                               BoxShadow(
-                                color: const Color(0xFF6F6F6F).withOpacity(0.24),
+                                color: AppColors.shadowGrey.withOpacity(0.24),
                                 offset: const Offset(0, 0),
                                 blurRadius: 24,
                                 spreadRadius: 0,
@@ -418,7 +418,7 @@ class _CardInputPageState extends State<CardInputPage> {
                               fontWeight: FontWeight.w600,
                               color: isComplete
                                   ? Colors.white
-                                  : (isDark ? const Color(0xFF818B93) : AppColors.lightTextSecondary),
+                                  : (isDark ? AppColors.textGrey : AppColors.lightTextSecondary),
                             ),
                           ),
                         ),
@@ -438,7 +438,7 @@ class _CardInputPageState extends State<CardInputPage> {
                     'Заполнить данные позже',
                     style: TextStyle(
                       fontSize: 14,
-                      color: const Color(0xFF9FA7AD),
+                      color: AppColors.textGreySecondary,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'Manrope',
                       height: 1.3,

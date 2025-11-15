@@ -90,7 +90,7 @@ class _VehicleSummaryPageState extends State<VehicleSummaryPage> {
                       margin: const EdgeInsets.only(bottom: 16, left: 0, right: 0),
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: isDark ? const Color(0xFF343F47) : const Color(0xFFF5F5F5),
+                        color: isDark ? AppColors.inputDark : AppColors.inputLight,
                         borderRadius: BorderRadius.circular(0),
                       ),
                       child: Row(
@@ -134,7 +134,7 @@ class _VehicleSummaryPageState extends State<VehicleSummaryPage> {
                               'Изменить',
                               style: TextStyle(
                                 fontSize: 14,
-                                color: const Color(0xFFFF8635),
+                                color: AppColors.orangeSelected,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -171,18 +171,18 @@ class _VehicleSummaryPageState extends State<VehicleSummaryPage> {
                         ? const LinearGradient(
                             begin: Alignment(-0.8, -0.6),
                             end: Alignment(0.8, 0.6),
-                            colors: [Color(0xFFF67824), Color(0xFFF6A523)],
+                            colors: [AppColors.orangeGradientStart, AppColors.orangeGradientEnd],
                             stops: [0.0, 1.0],
                           )
                         : null,
                     color: vehicles.isNotEmpty
                         ? null
-                        : (isDark ? const Color(0xFF343F47) : const Color(0xFFF5F5F5)),
+                        : (isDark ? AppColors.inputDark : AppColors.inputLight),
                     borderRadius: BorderRadius.circular(12),
                     boxShadow: vehicles.isNotEmpty
                         ? [
                             BoxShadow(
-                              color: const Color(0xFFF68324).withValues(alpha: 0.2),
+                              color: AppColors.orangeGradientShadow.withOpacity(0.2),
                               offset: const Offset(0, 0),
                               blurRadius: 12,
                               spreadRadius: 2,
@@ -190,7 +190,7 @@ class _VehicleSummaryPageState extends State<VehicleSummaryPage> {
                           ]
                         : [
                             BoxShadow(
-                              color: const Color(0xFF6F6F6F).withValues(alpha: 0.24),
+                              color: AppColors.shadowGrey.withOpacity(0.24),
                               offset: const Offset(0, 0),
                               blurRadius: 24,
                               spreadRadius: 0,
@@ -210,7 +210,7 @@ class _VehicleSummaryPageState extends State<VehicleSummaryPage> {
                             fontWeight: FontWeight.w600,
                             color: vehicles.isNotEmpty
                                 ? Colors.white
-                                : (isDark ? const Color(0xFF818B93) : AppColors.lightTextSecondary),
+                                : (isDark ? AppColors.textGrey : AppColors.lightTextSecondary),
                           ),
                         ),
                       ),
@@ -228,7 +228,7 @@ class _VehicleSummaryPageState extends State<VehicleSummaryPage> {
                     children: [
                       Icon(
                         Icons.add,
-                        color: const Color(0xFF9FA7AD),
+                        color: AppColors.textGreySecondary,
                         size: 20,
                       ),
                       const SizedBox(width: 8),
@@ -236,7 +236,7 @@ class _VehicleSummaryPageState extends State<VehicleSummaryPage> {
                         'Добавить другое ТС',
                         style: TextStyle(
                           fontSize: 14,
-                          color: const Color(0xFF9FA7AD),
+                          color: AppColors.textGreySecondary,
                           fontWeight: FontWeight.w600,
                         ),
                       ),

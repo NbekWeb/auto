@@ -10,7 +10,7 @@ class FAQPage extends StatefulWidget {
 }
 
 class _FAQPageState extends State<FAQPage> {
-  final Map<int, bool> _expandedItems = {};
+  int? _expandedIndex;
   List<FAQQuestion> _faqItems = [];
   bool _isLoading = true;
   String? _errorMessage;
@@ -73,7 +73,13 @@ class _FAQPageState extends State<FAQPage> {
 
   void _toggleItem(int index) {
     setState(() {
-      _expandedItems[index] = !(_expandedItems[index] ?? false);
+      if (_expandedIndex == index) {
+        // If clicking the same item, close it
+        _expandedIndex = null;
+      } else {
+        // Open the clicked item (this automatically closes any previously opened item)
+        _expandedIndex = index;
+      }
     });
   }
 
@@ -108,7 +114,7 @@ class _FAQPageState extends State<FAQPage> {
           ? Center(
               child: CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(
-                  const Color(0xFFFF771C),
+                  AppColors.orange,
                 ),
               ),
             )
@@ -131,7 +137,7 @@ class _FAQPageState extends State<FAQPage> {
                       ElevatedButton(
                         onPressed: _fetchFAQs,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFFF771C),
+                          backgroundColor: AppColors.orange,
                         ),
                         child: const Text(
                           'Повторить',
@@ -161,7 +167,7 @@ class _FAQPageState extends State<FAQPage> {
                       itemCount: _faqItems.length,
                       itemBuilder: (context, index) {
                         final question = _faqItems[index];
-                        final isExpanded = _expandedItems[index] ?? false;
+                        final isExpanded = _expandedIndex == index;
 
                         return _FAQQuestionItem(
                           question: question.question,
@@ -217,7 +223,7 @@ class _FAQQuestionItem extends StatelessWidget {
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                  color: isDark ? const Color(0xFF252F37) : const Color(0xFFE0E0E0),
+                  color: isDark ? AppColors.borderDark : AppColors.borderLight,
                   width: 1,
                 ),
               ),
@@ -231,7 +237,7 @@ class _FAQQuestionItem extends StatelessWidget {
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color: isExpanded
-                          ? const Color(0xFFFF771C)
+                          ? AppColors.orange
                           : (isDark ? AppColors.darkText : AppColors.lightText),
                       fontFamily: 'Manrope',
                     ),
@@ -286,7 +292,7 @@ class _FAQQuestionItem extends StatelessWidget {
                       Container(
                         margin: const EdgeInsets.symmetric(horizontal: 16),
                         height: 1,
-                        color: const Color(0xFFFF771C),
+                        color: AppColors.orange,
                       ),
                     ],
                   )

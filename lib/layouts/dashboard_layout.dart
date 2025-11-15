@@ -14,7 +14,7 @@ class DashboardLayout extends StatefulWidget {
 }
 
 class _DashboardLayoutState extends State<DashboardLayout> {
-  int _currentIndex = 1; // Start with map page (index 1)
+  int _currentIndex = 0; // Start with home page (index 0)
 
   final List<Widget> _pages = [
     const HomePage(),
@@ -36,10 +36,10 @@ class _DashboardLayoutState extends State<DashboardLayout> {
       bottomNavigationBar: Container(
         height: 98,
         decoration: BoxDecoration(
-          color: isDark ? const Color(0xFF2A2A2A) : const Color(0xFFF5F5F5),
+          color: isDark ? AppColors.darkSurface : AppColors.cardLight,
           border: Border(
             top: BorderSide(
-              color: isDark ? const Color(0xFF404040) : const Color(0xFFE0E0E0),
+              color: isDark ? AppColors.borderDark : AppColors.borderLight,
               width: 1,
             ),
           ),
@@ -92,7 +92,7 @@ class _DashboardLayoutState extends State<DashboardLayout> {
     final isActive = _currentIndex == index;
     final iconColor = isActive 
         ? (isDark ? Colors.white : Colors.black)
-        : (isDark ? const Color(0xFF818B93) : const Color(0xFF666666));
+        : (isDark ? AppColors.textGrey : AppColors.textGrey);
     
     return GestureDetector(
       onTap: () {
@@ -140,13 +140,13 @@ class _DashboardLayoutState extends State<DashboardLayout> {
           gradient: const LinearGradient(
             begin: Alignment(-0.8, -0.6),
             end: Alignment(0.8, 0.6),
-            colors: [Color(0xFFF67824), Color(0xFFF6A523)],
+            colors: [AppColors.orangeGradientStart, AppColors.orangeGradientEnd],
             stops: [0.0, 1.0],
           ),
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFFF68324).withOpacity(0.3),
+              color: AppColors.orangeGradientShadow.withOpacity(0.3),
               offset: const Offset(0, 4),
               blurRadius: 12,
               spreadRadius: 0,

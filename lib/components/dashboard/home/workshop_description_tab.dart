@@ -56,7 +56,7 @@ class WorkshopDescriptionTab extends StatelessWidget {
                           margin: const EdgeInsets.only(top: 6, right: 12),
                           decoration: BoxDecoration(
                             color: isDark
-                                ? const Color(0xFF66727A)
+                                ? AppColors.textGreyLight
                                 : AppColors.lightTextSecondary,
                             shape: BoxShape.circle,
                           ),

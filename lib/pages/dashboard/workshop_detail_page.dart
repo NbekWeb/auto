@@ -108,11 +108,11 @@ class _WorkshopDetailPageState extends State<WorkshopDetailPage>
                   // Tabs
                   TabBar(
                     controller: _tabController,
-                    indicatorColor: const Color(0xFFFF771C),
+                    indicatorColor: AppColors.orange,
                     indicatorWeight: 2,
-                    labelColor: const Color(0xFFFF771C),
+                    labelColor: AppColors.orange,
                     unselectedLabelColor: isDark
-                        ? const Color(0xFF66727A)
+                        ? AppColors.textGreyLight
                         : AppColors.lightTextSecondary,
                     labelStyle: const TextStyle(
                       fontSize: 16,
@@ -156,7 +156,7 @@ class _WorkshopDetailPageState extends State<WorkshopDetailPage>
               color: isDark ? AppColors.darkBackground : AppColors.lightBackground,
               border: Border(
                 top: BorderSide(
-                  color: isDark ? const Color(0xFF252F37) : const Color(0xFFE0E0E0),
+                  color: isDark ? AppColors.borderDark : AppColors.borderLight,
                   width: 1,
                 ),
               ),
@@ -175,20 +175,20 @@ class _WorkshopDetailPageState extends State<WorkshopDetailPage>
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: const [
-                        Color(0xFFF67824),
-                        Color(0xFFF6A523),
+                        AppColors.orangeGradientStart,
+                        AppColors.orangeGradientEnd,
                       ],
                       stops: const [0.0, 1.0],
                       transform: GradientRotation(80.32 * 3.14159 / 180),
                     ),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: const Color(0xFFFF954E),
+                      color: AppColors.orangeLight,
                       width: 1,
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: const Color(0xFFF68324).withOpacity(0.2),
+                        color: AppColors.orangeGradientShadow.withOpacity(0.2),
                         blurRadius: 12,
                         spreadRadius: 2,
                         offset: Offset.zero,

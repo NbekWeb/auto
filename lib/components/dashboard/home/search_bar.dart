@@ -57,7 +57,7 @@ class _SearchBarState extends State<CustomSearchBar> {
       height: 48,
       margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF343F47) : const Color(0xFFF5F5F5),
+        color: isDark ? AppColors.inputDark : AppColors.inputLight,
         borderRadius: BorderRadius.circular(12),
       ),
       child: TextField(

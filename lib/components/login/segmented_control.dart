@@ -20,7 +20,7 @@ class SegmentedControl extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: const Color(0xFF343F47),
+          color: AppColors.inputDark,
           width: 1,
         ),
       ),
@@ -68,7 +68,7 @@ class SegmentedControl extends StatelessWidget {
               ? const LinearGradient(
                   begin: Alignment(-0.8, -0.6),
                   end: Alignment(0.8, 0.6),
-                  colors: [Color(0xFFF67824), Color(0xFFF6A523)],
+                  colors: [AppColors.orangeGradientStart, AppColors.orangeGradientEnd],
                   stops: [0.0, 1.0],
                 )
               : null,

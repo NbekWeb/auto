@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import '../../../colors.dart';
 
 class WorkshopImageSwiper extends StatefulWidget {
   const WorkshopImageSwiper({super.key});
@@ -63,7 +64,7 @@ class _WorkshopImageSwiperState extends State<WorkshopImageSwiper> {
                 child: Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFE53935),
+                    color: AppColors.red,
                     borderRadius: BorderRadius.circular(12),
                     image: const DecorationImage(
                       image: AssetImage('assets/images/serv.png'),
@@ -89,8 +90,8 @@ class _WorkshopImageSwiperState extends State<WorkshopImageSwiper> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: _currentImageIndex == index
-                        ? const Color(0xFFFF771C)
-                        : const Color(0xFF66727A),
+                        ? AppColors.orange
+                        : AppColors.textGreyLight,
                   ),
                 );
               }),

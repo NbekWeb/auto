@@ -153,10 +153,10 @@ class _MasterSetupPageState extends State<MasterSetupPage> {
                   onTap: _showCityModal,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: isDark ? const Color(0xFF343F47) : const Color(0xFFF5F5F5),
+                      color: isDark ? AppColors.inputDark : AppColors.inputLight,
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: const Color(0xFF4F5B63),
+                        color: AppColors.inputBorder,
                         width: 1,
                       ),
                       boxShadow: [
@@ -245,12 +245,12 @@ class _MasterSetupPageState extends State<MasterSetupPage> {
                         child: Container(
                           decoration: BoxDecoration(
                             color: isSelected
-                                ? const Color(0xFFFF8635)
-                                : const Color(0xFF252F37),
+                                ? AppColors.orangeSelected
+                                : AppColors.borderDark,
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(
                               color: isSelected
-                                  ? const Color(0xFFFF8635)
+                                  ? AppColors.orangeSelected
                                   : Colors.transparent,
                               width: 1,
                             ),
@@ -282,14 +282,14 @@ class _MasterSetupPageState extends State<MasterSetupPage> {
                                   colorFilter: service['icon'] == 'help'
                                       ? ColorFilter.mode(
                                           isSelected
-                                              ? const Color(0xFFF4F4F4)
-                                              : const Color(0xFFF74242), // Red color for help icon
+                                              ? AppColors.textWhite
+                                              : AppColors.error,
                                           BlendMode.srcIn,
                                         )
                                       : ColorFilter.mode(
                                           isSelected
-                                              ? const Color(0xFFF4F4F4)
-                                              : const Color(0xFFFF771C),
+                                              ? AppColors.textWhite
+                                              : AppColors.orange,
                                           BlendMode.srcIn,
                                         ),
                                 ),
@@ -304,7 +304,7 @@ class _MasterSetupPageState extends State<MasterSetupPage> {
                                   style: TextStyle(
                                     fontSize: MediaQuery.of(context).size.width < 400 ? 10 : 12,
                                     fontWeight: FontWeight.w500,
-                                    color: const Color(0xFFF4F4F4),
+                                    color: AppColors.textWhite,
                                   ),
                                 ),
                               ),
@@ -325,19 +325,19 @@ class _MasterSetupPageState extends State<MasterSetupPage> {
                   decoration: BoxDecoration(
                     gradient: _isFormComplete()
                         ? const LinearGradient(
-                            colors: [Color(0xFFF67824), Color(0xFFF6A523)],
+                            colors: [AppColors.orangeGradientStart, AppColors.orangeGradientEnd],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           )
                         : null,
                     color: _isFormComplete()
                         ? null
-                        : (isDark ? const Color(0xFF343F47) : const Color(0xFFF5F5F5)),
+                        : (isDark ? AppColors.inputDark : AppColors.inputLight),
                     borderRadius: BorderRadius.circular(12),
                     boxShadow: _isFormComplete()
                         ? [
                             BoxShadow(
-                              color: const Color(0xFFF68324).withOpacity(0.2),
+                              color: AppColors.orangeGradientShadow.withOpacity(0.2),
                               offset: const Offset(0, 0),
                               blurRadius: 12,
                               spreadRadius: 2,
@@ -345,7 +345,7 @@ class _MasterSetupPageState extends State<MasterSetupPage> {
                           ]
                         : [
                             BoxShadow(
-                              color: const Color(0xFF6F6F6F).withOpacity(0.24),
+                              color: AppColors.shadowGrey.withOpacity(0.24),
                               offset: const Offset(0, 0),
                               blurRadius: 24,
                               spreadRadius: 0,
@@ -365,7 +365,7 @@ class _MasterSetupPageState extends State<MasterSetupPage> {
                             fontWeight: FontWeight.w600,
                             color: _isFormComplete()
                                 ? Colors.white
-                                : (isDark ? const Color(0xFF818B93) : AppColors.lightTextSecondary),
+                                : (isDark ? AppColors.textGrey : AppColors.lightTextSecondary),
                           ),
                         ),
                       ),
@@ -382,7 +382,7 @@ class _MasterSetupPageState extends State<MasterSetupPage> {
                     'Заполнить данные позже',
                     style: TextStyle(
                       fontSize: 14,
-                      color: const Color(0xFF9FA7AD),
+                      color: AppColors.textGreySecondary,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'Manrope',
                       height: 1.3,
@@ -434,7 +434,7 @@ class _MasterSetupPageState extends State<MasterSetupPage> {
       backgroundColor: Colors.transparent,
       builder: (context) => Container(
         decoration: BoxDecoration(
-          color: isDark ? const Color(0xFF2C2C2C) : Colors.white,
+          color: isDark ? AppColors.darkSurface : AppColors.white,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -488,12 +488,12 @@ class _MasterSetupPageState extends State<MasterSetupPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                       decoration: BoxDecoration(
                         color: isSelected 
-                            ? const Color(0xFFFF8635) 
+                            ? AppColors.orangeSelected 
                             : Colors.transparent,
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                           color: isSelected 
-                              ? const Color(0xFFFF8635) 
+                              ? AppColors.orangeSelected 
                               : Colors.transparent,
                           width: 1,
                         ),

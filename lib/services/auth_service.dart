@@ -1,4 +1,6 @@
 import 'api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthService {
   // Login with email/identifier - sends verification code
@@ -6,13 +8,8 @@ class AuthService {
     String identifier, {
     String role = 'Driver',
   }) async {
-    print('🔵 AuthService.loginWithEmail called with: $identifier, role: $role');
     try {
-      final requestData = {
-        'identifier': identifier,
-        'role': role,
-      };
-      print('🔵 Request data: $requestData');
+      final requestData = {'identifier': identifier, 'role': role};
 
       final response = await ApiService.request(
         url: 'auth/login/',
@@ -25,9 +22,6 @@ class AuthService {
         open: true,
       );
 
-      print('🔵 Response status code: ${response.statusCode}');
-      print('🔵 Response data: ${response.data}');
-
       if (response.statusCode == 200 || response.statusCode == 201) {
         return {
           'success': true,
@@ -37,8 +31,6 @@ class AuthService {
           'data': response.data,
         };
       } else {
-        print('🔴 Login with email failed with status: ${response.statusCode}');
-        print('🔴 Error response: ${response.data}');
         return {
           'success': false,
           'message': response.data != null && response.data['message'] != null
@@ -48,8 +40,6 @@ class AuthService {
         };
       }
     } catch (e) {
-      print('🔴 Login with email exception: $e');
-      print('🔴 Exception type: ${e.runtimeType}');
       return {
         'success': false,
         'message': 'Ошибка сети. Попробуйте позже.',
@@ -60,22 +50,15 @@ class AuthService {
 
   // Login with phone number - sends SMS code
   static Future<Map<String, dynamic>> loginWithPhone(String phoneNumber) async {
-    print('🔵 AuthService.loginWithPhone called with: $phoneNumber');
     try {
-      final requestData = {
-        'phone_number': phoneNumber,
-      };
-      print('🔵 Request data: $requestData');
-      
+      final requestData = {'phone_number': phoneNumber};
+
       final response = await ApiService.request(
         url: 'auth/login/',
         method: 'POST',
         data: requestData,
         open: true, // This endpoint doesn't require authentication
       );
-      
-      print('🔵 Response status code: ${response.statusCode}');
-      print('🔵 Response data: ${response.data}');
 
       if (response.statusCode == 200) {
         return {
@@ -84,8 +67,6 @@ class AuthService {
           'data': response.data,
         };
       } else {
-        print('🔴 Login failed with status: ${response.statusCode}');
-        print('🔴 Error response: ${response.data}');
         return {
           'success': false,
           'message': 'Не удалось отправить SMS код',
@@ -93,9 +74,6 @@ class AuthService {
         };
       }
     } catch (e) {
-      print('🔴 Login exception: $e');
-      print('🔴 Exception type: ${e.runtimeType}');
-      print('🔴 Exception details: ${e.toString()}');
       return {
         'success': false,
         'message': 'Ошибка сети. Попробуйте позже.',
@@ -110,15 +88,13 @@ class AuthService {
     String code, {
     String role = 'Driver',
   }) async {
-    print('🟡 AuthService.verifyCode called with identifier: $identifier, code: $code, role: $role');
     try {
       final requestData = {
         'identifier': identifier,
         'sms_code': code,
         'role': role,
       };
-      print('🟡 Request data: $requestData');
-      
+
       final response = await ApiService.request(
         url: 'auth/check-sms-code/',
         method: 'POST',
@@ -129,24 +105,39 @@ class AuthService {
         },
         open: true, // This endpoint doesn't require authentication
       );
-      
-      print('🟡 Response status code: ${response.statusCode}');
-      print('🟡 Response data: ${response.data}');
-
       if (response.statusCode == 200) {
         // Save token if provided
-        if (response.data != null && response.data['access_token'] != null) {
-          ApiService.setMemoryToken(response.data['access_token']);
+        // Token can be in format: tokens.access or access_token
+        String? token;
+        if (response.data != null) {
+          if (response.data['tokens'] != null && 
+              response.data['tokens']['access'] != null) {
+            token = response.data['tokens']['access'] as String;
+          } else if (response.data['access_token'] != null) {
+            token = response.data['access_token'] as String;
+          }
         }
         
+        if (token != null) {
+          ApiService.setMemoryToken(token);
+          
+          // Save token to localStorage (shared_preferences)
+          try {
+            final prefs = await SharedPreferences.getInstance();
+            await prefs.setString('access_token', token);
+          } catch (e) {
+            print('🔴 Error saving token to localStorage: $e');
+          }
+        } else {
+          print('⚠️ No access token found in response');
+        }
+
         return {
           'success': true,
           'message': response.data['message'] ?? 'Код успешно подтвержден',
           'data': response.data,
         };
       } else {
-        print('🔴 Verify failed with status: ${response.statusCode}');
-        print('🔴 Error response: ${response.data}');
         return {
           'success': false,
           'message': 'Неверный код подтверждения',
@@ -154,9 +145,6 @@ class AuthService {
         };
       }
     } catch (e) {
-      print('🔴 Verify exception: $e');
-      print('🔴 Exception type: ${e.runtimeType}');
-      print('🔴 Exception details: ${e.toString()}');
       return {
         'success': false,
         'message': 'Ошибка сети. Попробуйте позже.',
@@ -173,19 +161,52 @@ class AuthService {
         method: 'POST',
       );
 
-      // Clear token from memory and storage
+      // Clear token from memory
       ApiService.setMemoryToken(null);
-      
+
+      // Clear token from secure storage
+      try {
+        const storage = FlutterSecureStorage();
+        await storage.delete(key: 'access_token');
+      } catch (e) {
+        print('🔴 Error removing token from secure storage: $e');
+      }
+
+      // Clear token from localStorage (shared_preferences)
+      try {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.remove('access_token');
+      } catch (e) {
+        print('🔴 Error removing token from localStorage: $e');
+      }
+
       return {
         'success': true,
         'message': 'Выход выполнен успешно',
         'data': response.data,
       };
     } catch (e) {
+      // Even if API call fails, clear tokens locally
+      ApiService.setMemoryToken(null);
+      
+      try {
+        const storage = FlutterSecureStorage();
+        await storage.delete(key: 'access_token');
+      } catch (e) {
+        print('🔴 Error removing token from secure storage: $e');
+      }
+
+      try {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.remove('access_token');
+      } catch (e) {
+        print('🔴 Error removing token from localStorage: $e');
+      }
+
       return {
-        'success': false,
-        'message': 'Ошибка выхода. Попробуйте позже.',
-        'error': e.toString(),
+        'success': true,
+        'message': 'Выход выполнен (локально)',
+        'data': null,
       };
     }
   }

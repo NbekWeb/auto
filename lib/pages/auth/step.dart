@@ -242,7 +242,7 @@ class _StepPageState extends State<StepPage> {
                             child: Text(
                               'Skip',
                               style: TextStyle(
-                                color: const Color(0xFFFF8635),
+                                color: AppColors.orangeSelected,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700,
                               ),
@@ -416,13 +416,13 @@ class _StepPageState extends State<StepPage> {
                             gradient: const LinearGradient(
                               begin: Alignment(-0.8, -1.0),
                               end: Alignment(0.8, 1.0),
-                              colors: [Color(0xFFF67824), Color(0xFFF6A523)],
+                              colors: [AppColors.orangeGradientStart, AppColors.orangeGradientEnd],
                               stops: [-0.1034, 1.0747],
                             ),
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: [
                               BoxShadow(
-                                color: const Color(0x33F68324),
+                                color: AppColors.orangeGradientShadow.withOpacity(0.2),
                                 blurRadius: 12,
                                 offset: const Offset(0, 2),
                               ),
@@ -453,7 +453,7 @@ class _StepPageState extends State<StepPage> {
                                     fontFamily: 'Manrope',
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
-                                    color: Color(0xFFF4F4F4),
+                                    color: AppColors.textWhite,
                                   ),
                                 ),
                               ),

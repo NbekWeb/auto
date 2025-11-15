@@ -63,7 +63,7 @@ class WorkshopServicesTab extends StatelessWidget {
                                 left: 8,
                               ),
                               decoration: const BoxDecoration(
-                                color: Color(0xFFFF771C),
+                                color: AppColors.orange,
                                 shape: BoxShape.circle,
                               ),
                             ),
@@ -77,7 +77,7 @@ class WorkshopServicesTab extends StatelessWidget {
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
                                         color: isDark
-                                            ? const Color(0xFFD1D3D5)
+                                            ? AppColors.iconGrey
                                             : AppColors.lightTextSecondary,
                                         fontFamily: 'Manrope',
                                         height: 1.3,
@@ -89,7 +89,7 @@ class WorkshopServicesTab extends StatelessWidget {
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
                                         color: isDark
-                                            ? const Color(0xFFD1D3D5)
+                                            ? AppColors.iconGrey
                                             : AppColors.lightTextSecondary,
                                         fontFamily: 'Manrope',
                                         height: 1.3,
@@ -101,7 +101,7 @@ class WorkshopServicesTab extends StatelessWidget {
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
                                         color: isDark
-                                            ? const Color(0xFF818B93)
+                                            ? AppColors.textGrey
                                             : AppColors.lightTextSecondary,
                                         fontFamily: 'Manrope',
                                         height: 1.3,

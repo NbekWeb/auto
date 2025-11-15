@@ -21,7 +21,7 @@ class PrivacyPolicy extends StatelessWidget {
           TextSpan(
             text: 'политикой конфиденциальности',
             style: TextStyle(
-              color: const Color(0xFFFF8635),
+              color: AppColors.orangeSelected,
               decoration: TextDecoration.underline,
             ),
             recognizer: TapGestureRecognizer()

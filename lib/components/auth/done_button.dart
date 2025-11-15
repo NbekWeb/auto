@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
 import '../../colors.dart';
 
-class GetCodeButton extends StatelessWidget {
+class DoneButton extends StatelessWidget {
+  final bool isEnabled;
   final VoidCallback? onPressed;
-  final String text;
-  final bool isActive;
-  final bool isLoading;
 
-  const GetCodeButton({
+  const DoneButton({
     super.key,
+    required this.isEnabled,
     this.onPressed,
-    this.text = 'Получить код',
-    this.isActive = false,
-    this.isLoading = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    
+
     return Container(
       width: double.infinity,
       height: 40,
       decoration: BoxDecoration(
-        gradient: isActive 
+        gradient: isEnabled
             ? const LinearGradient(
                 begin: Alignment(-0.8, -0.6),
                 end: Alignment(0.8, 0.6),
@@ -31,9 +27,11 @@ class GetCodeButton extends StatelessWidget {
                 stops: [0.0, 1.0],
               )
             : null,
-        color: isActive ? null : (isDark ? AppColors.inputDark : AppColors.inputLight),
+        color: isEnabled
+            ? null
+            : (isDark ? AppColors.inputDark : AppColors.inputLight),
         borderRadius: BorderRadius.circular(12),
-        boxShadow: isActive 
+        boxShadow: isEnabled
             ? [
                 BoxShadow(
                   color: AppColors.orangeGradientShadow.withOpacity(0.2),
@@ -55,32 +53,22 @@ class GetCodeButton extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
-          onTap: onPressed,
+          onTap: isEnabled ? onPressed : null,
           child: Center(
-            child: isLoading
-                ? SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        isActive ? Colors.white : (isDark ? AppColors.textGrey : AppColors.lightText),
-                      ),
-                    ),
-                  )
-                : Text(
-                    text,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: isActive 
-                          ? Colors.white 
-                          : (isDark ? AppColors.textGrey : AppColors.lightText),
-                    ),
-                  ),
+            child: Text(
+              'Готово',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: isEnabled
+                    ? Colors.white
+                    : (isDark ? AppColors.textGrey : AppColors.lightTextSecondary),
+              ),
+            ),
           ),
         ),
       ),
     );
   }
 }
+

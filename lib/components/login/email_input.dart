@@ -35,7 +35,7 @@ class EmailInput extends StatelessWidget {
           height: 50,
           decoration: BoxDecoration(
             border: Border.all(
-              color: const Color(0xFF4F5B63),
+              color: AppColors.inputBorder,
               width: 1,
             ),
             borderRadius: BorderRadius.circular(8),

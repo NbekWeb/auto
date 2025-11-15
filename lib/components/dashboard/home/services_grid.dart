@@ -50,7 +50,7 @@ class ServicesGrid extends StatelessWidget {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    color: const Color(0xFF252F37),
+                    color: AppColors.borderDark,
                     borderRadius: BorderRadius.circular(8),
                     boxShadow: [
                       BoxShadow(
@@ -79,11 +79,11 @@ class ServicesGrid extends StatelessWidget {
                           height: 36,
                           colorFilter: service['icon'] == 'help'
                               ? const ColorFilter.mode(
-                                  Color(0xFFF74242),
+                                  AppColors.error,
                                   BlendMode.srcIn,
                                 )
                               : const ColorFilter.mode(
-                                  Color(0xFFFF771C),
+                                  AppColors.orange,
                                   BlendMode.srcIn,
                                 ),
                         ),
@@ -100,7 +100,7 @@ class ServicesGrid extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
-                              color: Color(0xFFF4F4F4),
+                              color: AppColors.textWhite,
                             ),
                           ),
                         ),

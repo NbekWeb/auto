@@ -32,10 +32,10 @@ class ThemeSelector extends StatelessWidget {
         ),
         Container(
           decoration: BoxDecoration(
-            color: isDark ? const Color(0xFF1E272F) : const Color(0xFFF5F5F5),
+            color: isDark ? AppColors.cardDark : AppColors.cardLight,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: isDark ? const Color(0xFF252F37) : const Color(0xFFE0E0E0),
+              color: isDark ? AppColors.borderDark : AppColors.borderLight,
               width: 1,
             ),
           ),
@@ -86,8 +86,8 @@ class _ThemeOption extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
           color: isSelected
-              ? const Color(0xFFFF771C)
-              : (isDark ? const Color(0xFF1E272F) : const Color(0xFFF5F5F5)),
+              ? AppColors.orange
+              : (isDark ? AppColors.cardDark : AppColors.cardLight),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Center(
